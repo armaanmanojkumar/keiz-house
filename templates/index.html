@@ -1,0 +1,1282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="icon" type="image/png" href="/static/images/logo.png">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Keiz House Digital Marketing Agency</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --gold: #c9a460;
+      --gold-light: #e2c07a;
+      --bg: #080808;
+      --bg2: #0f0f0f;
+      --bg3: #141414;
+      --cream: #f5f0e8;
+      --muted: #888;
+      --border: #1e1e1e;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--cream);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      overflow-x: hidden;
+    }
+
+    /* ─── NOISE OVERLAY ─── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.4;
+    }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 24px 60px;
+      background: linear-gradient(to bottom, rgba(8,8,8,0.95), transparent);
+      transition: background 0.3s;
+    }
+
+    nav.scrolled {
+      background: rgba(8,8,8,0.97);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 26px;
+      font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 3px;
+      text-decoration: none;
+      text-transform: uppercase;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 40px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 12px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      transition: color 0.3s;
+    }
+
+    .nav-links a:hover { color: var(--cream); }
+
+    /* ─── HERO ─── */
+    #hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 0 60px;
+      overflow: hidden;
+    }
+
+    .hero-bg-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(120px, 18vw, 280px);
+      font-weight: 600;
+      color: rgba(201, 164, 96, 0.04);
+      white-space: nowrap;
+      pointer-events: none;
+      letter-spacing: -5px;
+      user-select: none;
+    }
+
+    .hero-tag {
+      font-size: 11px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 28px;
+      opacity: 0;
+      animation: fadeUp 1s ease 0.2s forwards;
+    }
+
+    .hero-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(52px, 8vw, 110px);
+      font-weight: 300;
+      line-height: 1;
+      letter-spacing: -1px;
+      max-width: 800px;
+      opacity: 0;
+      animation: fadeUp 1s ease 0.4s forwards;
+    }
+
+    .hero-title em {
+      font-style: italic;
+      color: var(--gold);
+    }
+
+    .hero-sub {
+      margin-top: 32px;
+      font-size: 15px;
+      color: var(--muted);
+      max-width: 420px;
+      line-height: 1.8;
+      opacity: 0;
+      animation: fadeUp 1s ease 0.6s forwards;
+    }
+
+    .hero-cta {
+      margin-top: 52px;
+      display: flex;
+      gap: 20px;
+      align-items: center;
+      opacity: 0;
+      animation: fadeUp 1s ease 0.8s forwards;
+    }
+
+    .btn-gold {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--gold);
+      color: #080808;
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 16px 36px;
+      transition: background 0.3s, transform 0.2s;
+    }
+
+    .btn-gold:hover { background: var(--gold-light); transform: translateY(-1px); }
+
+    .btn-outline {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      border: 1px solid rgba(201,164,96,0.4);
+      color: var(--gold);
+      text-decoration: none;
+      font-size: 12px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 16px 36px;
+      transition: border-color 0.3s, background 0.3s;
+    }
+
+    .btn-outline:hover {
+      border-color: var(--gold);
+      background: rgba(201,164,96,0.06);
+    }
+
+    .hero-scroll {
+      position: absolute;
+      bottom: 40px;
+      left: 60px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 10px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--muted);
+      opacity: 0;
+      animation: fadeIn 1s ease 1.4s forwards;
+    }
+
+    .hero-scroll::before {
+      content: '';
+      display: block;
+      width: 40px;
+      height: 1px;
+      background: var(--muted);
+    }
+
+    /* ─── SECTION COMMON ─── */
+    section {
+      position: relative;
+      z-index: 1;
+    }
+
+    .section-label {
+      font-size: 10px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .section-label::before {
+      content: '';
+      display: block;
+      width: 32px;
+      height: 1px;
+      background: var(--gold);
+    }
+
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(36px, 5vw, 64px);
+      font-weight: 300;
+      line-height: 1.1;
+    }
+
+    .section-title em {
+      font-style: italic;
+      color: var(--gold);
+    }
+
+    /* ─── STATS STRIP ─── */
+    #stats {
+      background: var(--bg3);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 60px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2px;
+    }
+
+    .stat-item {
+      text-align: center;
+      padding: 20px;
+      border-right: 1px solid var(--border);
+    }
+
+    .stat-item:last-child { border-right: none; }
+
+    .stat-number {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(44px, 5vw, 72px);
+      font-weight: 300;
+      color: var(--gold);
+      line-height: 1;
+      display: flex;
+      align-items: baseline;
+      justify-content: center;
+      gap: 2px;
+    }
+
+    .stat-suffix {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.55em;
+      color: var(--gold-light);
+      font-weight: 300;
+    }
+
+    .stat-label {
+      font-size: 10px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 12px;
+    }
+
+    @media (max-width: 900px) {
+      #stats {
+        grid-template-columns: repeat(2, 1fr);
+        padding: 40px 24px;
+      }
+      .stat-item { border-right: none; border-bottom: 1px solid var(--border); }
+      .stat-item:nth-child(odd) { border-right: 1px solid var(--border); }
+      .stat-item:last-child { border-bottom: none; }
+    }
+
+    /* ─── ABOUT ─── */
+    #about {
+      padding: 120px 60px;
+      background: var(--bg2);
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      margin-top: 70px;
+      align-items: start;
+    }
+
+    .about-statement {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(22px, 2.5vw, 32px);
+      font-weight: 300;
+      line-height: 1.6;
+      color: var(--cream);
+      border-left: 2px solid var(--gold);
+      padding-left: 32px;
+    }
+
+    .about-body {
+      font-size: 15px;
+      color: var(--muted);
+      line-height: 1.9;
+    }
+
+    .about-body p + p { margin-top: 20px; }
+
+    /* ─── FOUNDERS ─── */
+    .founders-heading {
+      margin-top: 90px;
+      padding-top: 60px;
+      border-top: 1px solid var(--border);
+    }
+
+    .founders-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+      margin-top: 50px;
+    }
+
+    .founder-card {
+      background: var(--bg3);
+      padding: 50px 44px;
+      position: relative;
+      overflow: hidden;
+      transition: background 0.3s;
+    }
+
+    .founder-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 3px;
+      height: 0;
+      background: var(--gold);
+      transition: height 0.4s ease;
+    }
+
+    .founder-card:hover::before { height: 100%; }
+    .founder-card:hover { background: #161616; }
+
+    .founder-number {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 64px;
+      font-weight: 300;
+      color: rgba(201,164,96,0.1);
+      position: absolute;
+      top: 24px;
+      right: 32px;
+      line-height: 1;
+    }
+
+    .founder-role {
+      font-size: 10px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 16px;
+    }
+
+    .founder-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 34px;
+      font-weight: 400;
+      line-height: 1.1;
+      margin-bottom: 24px;
+    }
+
+    .founder-bio {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.85;
+    }
+
+    .founder-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 28px;
+    }
+
+    .tag {
+      font-size: 10px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--muted);
+      border: 1px solid var(--border);
+      padding: 6px 14px;
+    }
+
+    /* ─── SERVICES ─── */
+    #services {
+      padding: 120px 60px;
+      background: var(--bg);
+    }
+
+    .services-intro {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: end;
+      margin-bottom: 70px;
+    }
+
+    .services-desc {
+      font-size: 15px;
+      color: var(--muted);
+      line-height: 1.9;
+      align-self: end;
+    }
+
+    .service-list {
+      border-top: 1px solid var(--border);
+    }
+
+    .service-item {
+      display: grid;
+      grid-template-columns: 60px 1fr auto;
+      align-items: center;
+      gap: 40px;
+      padding: 36px 0;
+      border-bottom: 1px solid var(--border);
+      cursor: default;
+      transition: background 0.2s;
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+
+    .service-item:hover {
+      background: rgba(201,164,96,0.03);
+    }
+
+    .service-item:hover .service-arrow { opacity: 1; transform: translateX(0); }
+
+    .service-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 13px;
+      color: var(--gold);
+      font-weight: 400;
+    }
+
+    .service-info {}
+
+    .service-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 28px;
+      font-weight: 400;
+      margin-bottom: 6px;
+      transition: color 0.2s;
+    }
+
+    .service-item:hover .service-name { color: var(--gold); }
+
+    .service-desc {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.7;
+      max-width: 480px;
+    }
+
+    .service-arrow {
+      font-size: 20px;
+      color: var(--gold);
+      opacity: 0;
+      transform: translateX(-8px);
+      transition: opacity 0.2s, transform 0.2s;
+    }
+
+    /* ─── WORK / CLIENTS ─── */
+    #work {
+      padding: 120px 60px;
+      background: var(--bg2);
+    }
+
+    .work-intro {
+      max-width: 600px;
+      margin-bottom: 70px;
+    }
+
+    .work-note {
+      margin-top: 20px;
+      font-size: 13px;
+      color: var(--muted);
+      font-style: italic;
+      line-height: 1.7;
+    }
+
+    .work-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+    }
+
+    .work-card {
+      background: var(--bg3);
+      padding: 44px 40px;
+      position: relative;
+      overflow: hidden;
+      transition: background 0.3s;
+      min-height: 200px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .work-card:hover { background: #161616; }
+
+    .work-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 2px;
+      background: var(--gold);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.4s ease;
+    }
+
+    .work-card:hover::after { transform: scaleX(1); }
+
+    .work-industry {
+      font-size: 10px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 12px;
+    }
+
+    .work-brand {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 26px;
+      font-weight: 400;
+      line-height: 1.2;
+    }
+
+    .work-scope {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 16px;
+      line-height: 1.7;
+    }
+
+    .work-agency-note {
+      font-size: 10px;
+      color: rgba(136,136,136,0.5);
+      letter-spacing: 1px;
+      margin-top: 20px;
+    }
+
+    /* ─── BOOK A CALL ─── */
+    #book {
+      padding: 140px 60px;
+      background: var(--bg);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    #book::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(ellipse, rgba(201,164,96,0.06), transparent 70%);
+      pointer-events: none;
+    }
+
+    .book-label {
+      font-size: 10px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 24px;
+      justify-content: center;
+    }
+
+    .book-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(40px, 6vw, 80px);
+      font-weight: 300;
+      line-height: 1.1;
+      max-width: 720px;
+      margin: 0 auto 24px;
+    }
+
+    .book-sub {
+      font-size: 15px;
+      color: var(--muted);
+      margin-bottom: 52px;
+      line-height: 1.8;
+    }
+
+    /* ─── CONTACT ─── */
+    #contact {
+      padding: 120px 60px;
+      background: var(--bg2);
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.4fr;
+      gap: 100px;
+      margin-top: 60px;
+    }
+
+    .contact-info h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 28px;
+      font-weight: 300;
+      margin-bottom: 20px;
+    }
+
+    .contact-info p {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.9;
+    }
+
+    .contact-detail {
+      margin-top: 40px;
+    }
+
+    .contact-detail a {
+      display: block;
+      color: var(--gold);
+      font-size: 15px;
+      text-decoration: none;
+      margin-top: 8px;
+      transition: opacity 0.2s;
+    }
+
+    .contact-detail a:hover { opacity: 0.7; }
+
+    .contact-detail-label {
+      font-size: 10px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    /* ─── FORM ─── */
+    .form-group {
+      margin-bottom: 28px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 10px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-bottom-color: rgba(201,164,96,0.3);
+      color: var(--cream);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      font-weight: 300;
+      padding: 14px 16px;
+      outline: none;
+      transition: border-color 0.3s;
+      -webkit-appearance: none;
+    }
+
+    .form-group select {
+      cursor: pointer;
+    }
+
+    .form-group select option {
+      background: #1a1a1a;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--gold);
+    }
+
+    .form-group textarea { resize: vertical; min-height: 120px; }
+
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+
+    #form-msg {
+      margin-top: 16px;
+      font-size: 13px;
+      color: var(--gold);
+      min-height: 20px;
+    }
+
+    /* ─── WHATSAPP FLOAT ─── */
+    .whatsapp-float {
+      position: fixed;
+      bottom: 32px;
+      right: 32px;
+      z-index: 200;
+      width: 56px;
+      height: 56px;
+      background: #25D366;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 20px rgba(37,211,102,0.35);
+      transition: transform 0.2s, box-shadow 0.2s;
+      text-decoration: none;
+    }
+
+    .whatsapp-float:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 30px rgba(37,211,102,0.5);
+    }
+
+    .whatsapp-float svg { width: 28px; height: 28px; fill: #fff; }
+
+    /* ─── SERVICE ITEM AS LINK ─── */
+    a.service-item {
+      text-decoration: none;
+      color: inherit;
+      display: grid;
+    }
+
+    /* ─── TRUST STRIP ─── */
+    .trust-strip {
+      background: var(--bg2);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 28px 60px;
+      display: flex;
+      justify-content: center;
+      gap: 60px;
+      flex-wrap: wrap;
+    }
+
+    .trust-item {
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .trust-item::before {
+      content: '';
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      background: var(--gold);
+      border-radius: 50%;
+    }
+
+    @media (max-width: 900px) {
+      .trust-strip { padding: 24px; gap: 24px; }
+      .whatsapp-float { bottom: 20px; right: 20px; }
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      padding: 50px 60px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: var(--bg);
+    }
+
+    .footer-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px;
+      font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 3px;
+      text-transform: uppercase;
+    }
+
+    .footer-copy {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    /* ─── ANIMATIONS ─── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 900px) {
+      nav { padding: 20px 24px; }
+      .nav-links { display: none; }
+      #hero, #about, #services, #work, #book, #contact { padding-left: 24px; padding-right: 24px; }
+      .about-grid, .founders-grid, .work-grid, .contact-grid, .services-intro { grid-template-columns: 1fr; gap: 40px; }
+      footer { flex-direction: column; gap: 16px; text-align: center; padding: 40px 24px; }
+      .form-row { grid-template-columns: 1fr; }
+      .service-item { grid-template-columns: 40px 1fr; gap: 20px; }
+      .service-arrow { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#hero" class="nav-logo">
+  <img src="/static/images/logo.png" alt="Keiz House Logo" style="height: 48px; width: auto; display: block;" />
+</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#work">Work</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="#book" class="btn-gold" style="font-size:11px; padding: 12px 28px;">Book a Call</a>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg-text">KEIZ</div>
+  <p class="hero-tag">Premium Digital Marketing · Berlin</p>
+  <h1 class="hero-title">Your brand,<br><em>elevated.</em></h1>
+  <p class="hero-sub">We work with ambitious founders and growth-stage brands to build the strategy, content, and digital presence that earns real attention and keeps it.</p>
+  <div class="hero-cta">
+    <a href="https://calendly.com/keizhouse" target="_blank" class="btn-gold">Book a Discovery Call →</a>
+    <a href="#services" class="btn-outline">See Our Services</a>
+  </div>
+  <div class="hero-scroll">Scroll to explore</div>
+</section>
+
+<!-- STATS STRIP -->
+<section id="stats">
+  <div class="stat-item reveal">
+    <div class="stat-number"><span class="counter" data-target="6">0</span><span class="stat-suffix">+</span></div>
+    <div class="stat-label">Industries Served</div>
+  </div>
+  <div class="stat-item reveal">
+    <div class="stat-number"><span class="counter" data-target="20">0</span><span class="stat-suffix">+</span></div>
+    <div class="stat-label">Brands Worked With</div>
+  </div>
+  <div class="stat-item reveal">
+    <div class="stat-number"><span class="counter" data-target="5">0</span><span class="stat-suffix">yrs</span></div>
+    <div class="stat-label">Combined Agency Experience</div>
+  </div>
+  <div class="stat-item reveal">
+    <div class="stat-number"><span class="counter" data-target="3">0</span><span class="stat-suffix">continents</span></div>
+    <div class="stat-label">Campaigns Delivered</div>
+  </div>
+</section>
+
+<!-- TRUST STRIP -->
+<div class="trust-strip">
+  <span class="trust-item">Strategy-first approach</span>
+  <span class="trust-item">Senior-level execution only</span>
+  <span class="trust-item">No long-term lock-ins</span>
+  <span class="trust-item">Results-oriented pricing</span>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-label">About Us</div>
+  <div class="about-grid">
+    <div class="about-statement reveal">
+      "We didn't start Keiz House because the market needed another agency.<br>We started it because we knew how to do it better."
+    </div>
+    <div class="about-body reveal">
+      <p>Keiz House was built at the intersection of technology and storytelling two disciplines that, when wielded together, can turn an unknown brand into an industry name.</p>
+      <p>We came up through the agency world: pitching boardrooms, managing campaigns across continents, engineering systems that scaled. We've seen what works, what doesn't, and more importantly what's been left on the table.</p>
+      <p>Today, we bring that experience directly to the brands we believe in. No layers. No hand-offs to juniors. Just two people who've spent years building for others, now building for you.</p>
+    </div>
+  </div>
+
+  <!-- FOUNDERS -->
+  <div class="founders-heading reveal">
+    <div class="section-label">The Founders</div>
+    <h2 class="section-title">Two minds.<br><em>One vision.</em></h2>
+  </div>
+
+  <div class="founders-grid">
+    <div class="founder-card reveal">
+      <div class="founder-number">01</div>
+      <p class="founder-role">Co-Founder · Tech & Digital Lead</p>
+      <h3 class="founder-name">Armaan<br>Manoj Kumar</h3>
+      <p class="founder-bio">
+       Armaan brings structure, systems, and technical clarity to Keiz House. With a background spanning web development, digital builds, and growth-focused execution, he specialises in creating the digital foundations that ambitious brands need to move well and scale better.
+        <br><br>
+       He sees technology as more than functionality. For him, it is about building the right ecosystem one that supports the brand, strengthens the user experience, and removes friction wherever possible. At Keiz House, Armaan ensures that every digital touchpoint is intentional, efficient, and built to perform.
+      </p>
+      <div class="founder-tags">
+        <span class="tag">Tech Strategy</span>
+        <span class="tag">Automation</span>
+        <span class="tag">Growth Systems</span>
+        <span class="tag">Web & Analytics</span>
+      </div>
+    </div>
+    <div class="founder-card reveal">
+      <div class="founder-number">02</div>
+      <p class="founder-role">Co-Founder · Marketing & Creative Lead</p>
+      <h3 class="founder-name">Anshpreet<br>Singh</h3>
+      <p class="founder-bio">
+       Anshpreet brings the voice, vision, and strategic energy behind Keiz House. Working across marketing, social media, and creative communication, he focuses on shaping brands that do not just compete for attention, but stay with people.
+        <br><br>
+        His strength lies in combining creative instinct with strategic direction building narratives, campaigns, and content that feel culturally aware, emotionally sharp, and commercially relevant. At Keiz House, Anshpreet ensures that every brand story is clear, compelling, and positioned for real growth.
+      </p>
+      <div class="founder-tags">
+        <span class="tag">Brand Strategy</span>
+        <span class="tag">Social Media</span>
+        <span class="tag">Content</span>
+        <span class="tag">Paid Media</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="services-intro">
+    <div>
+      <div class="section-label reveal">What We Do</div>
+      <h2 class="section-title reveal">Services built<br>for <em>real results.</em></h2>
+    </div>
+    <p class="services-desc reveal">Every engagement is tailored. We don't do templated retainers or generic deliverables we do the work that actually moves the needle for your specific brand.</p>
+  </div>
+
+  <div class="service-list">
+    <a class="service-item reveal" href="#contact" onclick="setTimeout(()=>document.getElementById('service').value='Brand Strategy',100)">
+      <span class="service-num">01</span>
+      <div class="service-info">
+        <div class="service-name">Brand Strategy</div>
+        <div class="service-desc">Positioning, voice, visual identity direction, and competitive landscape analysis. We define who you are and why it matters.</div>
+      </div>
+      <span class="service-arrow">→</span>
+    </a>
+    <a class="service-item reveal" href="#contact" onclick="setTimeout(()=>document.getElementById('service').value='Marketing Strategy',100)">
+      <span class="service-num">02</span>
+      <div class="service-info">
+        <div class="service-name">Marketing Strategy</div>
+        <div class="service-desc">End-to-end go-to-market planning, campaign architecture, and performance frameworks. Strategy that connects your brand to the right audience at the right moment.</div>
+      </div>
+      <span class="service-arrow">→</span>
+    </a>
+    <a class="service-item reveal" href="#contact" onclick="setTimeout(()=>document.getElementById('service').value='Social Media Management',100)">
+      <span class="service-num">03</span>
+      <div class="service-info">
+        <div class="service-name">Social Media Management</div>
+        <div class="service-desc">Content calendars, creative direction, community management, and platform-native strategy across Instagram, LinkedIn, TikTok, and beyond.</div>
+      </div>
+      <span class="service-arrow">→</span>
+    </a>
+    <a class="service-item reveal" href="#contact" onclick="setTimeout(()=>document.getElementById('service').value='Performance Marketing',100)">
+      <span class="service-num">04</span>
+      <div class="service-info">
+        <div class="service-name">Performance Marketing</div>
+        <div class="service-desc">Paid social and search campaigns engineered for measurable returns. We build, test, and optimise so your budget works harder.</div>
+      </div>
+      <span class="service-arrow">→</span>
+    </a>
+    <a class="service-item reveal" href="#contact" onclick="setTimeout(()=>document.getElementById('service').value='Content Creation',100)">
+      <span class="service-num">05</span>
+      <div class="service-info">
+        <div class="service-name">Content Creation</div>
+        <div class="service-desc">Copywriting, visual content strategy, and creative production. Every piece crafted to engage, convert, and build long-term brand equity.</div>
+      </div>
+      <span class="service-arrow">→</span>
+    </a>
+    <a class="service-item reveal" href="#contact" onclick="setTimeout(()=>document.getElementById('service').value='Web & Digital Infrastructure',100)">
+      <span class="service-num">06</span>
+      <div class="service-info">
+        <div class="service-name">Web & Digital Infrastructure</div>
+        <div class="service-desc">Landing pages, marketing automation, CRM setup, and analytics the backbone that makes everything else perform.</div>
+      </div>
+      <span class="service-arrow">→</span>
+    </a>
+  </div>
+</section>
+
+<!-- WORK -->
+<section id="work">
+  <div class="work-intro reveal">
+    <div class="section-label">Experience</div>
+    <h2 class="section-title">INDUSTRIES we've<br><em>contributed to.</em></h2>
+    <p class="work-note">The following reflects work carried out by our founders during their time at various agencies and organisations. These are not direct Keiz House clients.</p>
+  </div>
+
+  <div class="work-grid">
+    <div class="work-card reveal">
+      <div>
+        <div class="work-industry">E-Commerce</div>
+        <div class="work-brand">D2C Fashion &amp; Apparel</div>
+        <div class="work-scope">Brand positioning, paid social strategy, and content architecture for emerging direct-to-consumer fashion labels across South Asia and the UK.</div>
+      </div>
+      <div class="work-agency-note">Via agency engagement</div>
+    </div>
+    <div class="work-card reveal">
+      <div>
+        <div class="work-industry">Technology</div>
+        <div class="work-brand">SaaS &amp; Tech Startups</div>
+        <div class="work-scope">Go-to-market strategy, lead generation systems, and performance campaigns for B2B and B2C software products at growth stage.</div>
+      </div>
+      <div class="work-agency-note">Via agency engagement</div>
+    </div>
+    <div class="work-card reveal">
+      <div>
+        <div class="work-industry">Hospitality</div>
+        <div class="work-brand">Luxury F&amp;B &amp; Lifestyle</div>
+        <div class="work-scope">Social media management, influencer campaign coordination, and digital brand building for premium hospitality and lifestyle brands.</div>
+      </div>
+      <div class="work-agency-note">Via agency engagement</div>
+    </div>
+    <div class="work-card reveal">
+      <div>
+        <div class="work-industry">Finance</div>
+        <div class="work-brand">Fintech &amp; Financial Services</div>
+        <div class="work-scope">Compliant content strategies, audience development, and digital communications for fintech products and financial institutions.</div>
+      </div>
+      <div class="work-agency-note">Via agency engagement</div>
+    </div>
+    <div class="work-card reveal">
+      <div>
+        <div class="work-industry">Real Estate</div>
+        <div class="work-brand">Property &amp; Development</div>
+        <div class="work-scope">Digital marketing, lead funnel design, and brand identity work for residential and commercial property developers.</div>
+      </div>
+      <div class="work-agency-note">Via agency engagement</div>
+    </div>
+    <div class="work-card reveal">
+      <div>
+        <div class="work-industry">FMCG</div>
+        <div class="work-brand">Consumer Goods &amp; Retail</div>
+        <div class="work-scope">Campaign management and social strategy for fast-moving consumer goods across regional and national markets.</div>
+      </div>
+      <div class="work-agency-note">Via agency engagement</div>
+    </div>
+  </div>
+</section>
+
+<!-- BOOK A CALL -->
+<section id="book">
+  <div class="section-label book-label reveal" style="justify-content:center;">Get Started</div>
+  <h2 class="book-title reveal">Let's talk about<br><em>your brand.</em></h2>
+  <p class="book-sub reveal">30 minutes. No pitch deck. Just an honest conversation about where you are and where you want to go.</p>
+  <div style="display:flex; gap:20px; justify-content:center; align-items:center; flex-wrap:wrap;" class="reveal">
+    <a href="https://calendly.com/keizhouse" target="_blank" class="btn-gold" style="font-size: 13px; padding: 18px 48px; display: inline-flex;">
+      Book a Discovery Call &nbsp; →
+    </a>
+    <a href="https://wa.me/4917768394671" target="_blank" class="btn-outline" style="font-size: 13px; padding: 18px 36px; display: inline-flex; gap: 10px; align-items: center;">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      WhatsApp Us
+    </a>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-label reveal">Get In Touch</div>
+  <h2 class="section-title reveal">Drop us<br>a <em>message.</em></h2>
+
+  <div class="contact-grid">
+    <div class="contact-info reveal">
+      <h3>We'd love to hear from you.</h3>
+      <p>Whether you have a brief in hand or are still figuring out what you need reach out. Every great project starts with a conversation.</p>
+      <div class="contact-detail" style="margin-top: 48px;">
+        <span class="contact-detail-label">Email</span>
+        <a href="mailto:business@keizhouse.com">business@keizhouse.com</a>
+      </div>
+      <div class="contact-detail" style="margin-top: 32px;">
+        <span class="contact-detail-label">WhatsApp</span>
+        <a href="https://wa.me/4917768394671" target="_blank">+49 177 6839467</a>
+      </div>
+      <div class="contact-detail" style="margin-top: 32px;">
+        <span class="contact-detail-label">Book Directly</span>
+        <a href="https://calendly.com/keizhouse" target="_blank">Schedule a discovery call →</a>
+      </div>
+    </div>
+
+    <form class="reveal" id="contact-form">
+      <div class="form-row">
+        <div class="form-group">
+          <label>Your Name</label>
+          <input type="text" id="name" placeholder="Full name" required />
+        </div>
+        <div class="form-group">
+          <label>Email Address</label>
+          <input type="email" id="email" placeholder="you@company.com" required />
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Service of Interest</label>
+          <select id="service">
+            <option value="">Select a service</option>
+            <option>Brand Strategy</option>
+            <option>Marketing Strategy</option>
+            <option>Social Media Management</option>
+            <option>Performance Marketing</option>
+            <option>Content Creation</option>
+            <option>Web & Digital Infrastructure</option>
+            <option>Full-Service Retainer</option>
+            <option>Other / Not Sure Yet</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Monthly Budget Range</label>
+          <select id="budget">
+            <option value="">Select budget range</option>
+            <option>Under €1,000</option>
+            <option>€1,000 – €2,500</option>
+            <option>€2,500 – €5,000</option>
+            <option>€5,000 – €10,000</option>
+            <option>€10,000+</option>
+            <option>Let's discuss</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Your Message</label>
+        <textarea id="message" placeholder="Tell us about your brand, what you're looking to achieve, and your timeline…"></textarea>
+      </div>
+      <button type="submit" class="btn-gold" style="width:100%; justify-content:center; cursor:pointer; border:none; font-family:'DM Sans',sans-serif;">
+        Send Message &nbsp; →
+      </button>
+      <div id="form-msg"></div>
+    </form>
+  </div>
+</section>
+
+<!-- WHATSAPP FLOAT -->
+<a href="https://wa.me/491776839467?text=Hi%20KeizHouse" target="_blank" class="whatsapp-float" aria-label="Chat on WhatsApp">
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">
+  <img src="/static/images/logo.png" alt="Keiz House Logo" style="height: 48px; width: auto; display: block;" />
+</div>
+  <p class="footer-copy">© 2026 Keiz House. All rights reserved.</p>
+</footer>
+
+<script>
+  // Nav scroll state
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 60);
+  });
+
+  // Scroll reveal
+  const revealEls = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 60);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+  revealEls.forEach(el => observer.observe(el));
+
+  // Animated counters
+  function animateCounter(el) {
+    const target = parseInt(el.dataset.target);
+    const duration = 1800;
+    const start = performance.now();
+    function update(now) {
+      const elapsed = now - start;
+      const progress = Math.min(elapsed / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      el.textContent = Math.floor(eased * target);
+      if (progress < 1) requestAnimationFrame(update);
+      else el.textContent = target;
+    }
+    requestAnimationFrame(update);
+  }
+
+  const counterObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        animateCounter(entry.target);
+        counterObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.5 });
+
+  document.querySelectorAll('.counter').forEach(el => counterObserver.observe(el));
+
+  // Contact form
+  document.getElementById('contact-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const btn = e.target.querySelector('button[type=submit]');
+    const msg = document.getElementById('form-msg');
+    btn.textContent = 'Sending…';
+    btn.style.opacity = '0.7';
+
+    try {
+      const res = await fetch('/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: document.getElementById('name').value,
+          email: document.getElementById('email').value,
+          service: document.getElementById('service').value,
+          budget: document.getElementById('budget').value,
+          message: document.getElementById('message').value,
+        })
+      });
+      const data = await res.json();
+      msg.textContent = data.message;
+      msg.style.color = data.success ? '#c9a460' : '#e05a5a';
+      if (data.success) e.target.reset();
+    } catch {
+      msg.textContent = 'Something went wrong. Please email us directly.';
+      msg.style.color = '#e05a5a';
+    } finally {
+      btn.textContent = 'Send Message  →';
+      btn.style.opacity = '1';
+    }
+  });
+</script>
+</body>
+</html>
